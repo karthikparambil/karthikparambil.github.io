@@ -1,1 +1,1 @@
-http://karthikparambil.github.io/.com 
+http://karthikparambil.github.io
