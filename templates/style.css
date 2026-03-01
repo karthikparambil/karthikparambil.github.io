@@ -663,6 +663,63 @@ body::after {
     transform: translate(-50%, -50%);
 }
 
+
+.header__socials {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.header__social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 8px; /* Slightly rounded corners for a modern look */
+    background: rgba(89, 255, 185, 0.05);
+    border: 1px solid rgba(89, 255, 185, 0.2);
+    color: #59FFB9;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.header__social-btn svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.header__social-btn:hover {
+    background: rgba(89, 255, 185, 0.15);
+    border-color: #59FFB9;
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(89, 255, 185, 0.3);
+}
+
+.header__social-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.header__social-btn:hover::after {
+    left: 100%;
+}
+
 /*
  * ==================
  * Animations
