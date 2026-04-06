@@ -2,6 +2,7 @@
 .project-actions {
     margin: 1.5rem 0;
     display: flex;
+    justify-content: flex-start;
     gap: 1rem;
 }
 
@@ -9,13 +10,13 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.75rem;
     background: rgba(89, 255, 185, 0.1);
     color: #59FFB9;
     border: 1px solid rgba(89, 255, 185, 0.3);
     border-radius: 4px;
     text-decoration: none;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 500;
     transition: all 0.3s ease;
 }
@@ -1949,9 +1950,6 @@ body::after {
     height: 50px;
 }
 
-.certification-card__badge {
-    margin-top: 1rem;
-}
 
 .certification-card__badge-text {
     background: linear-gradient(135deg, rgba(89, 255, 185, 0.2), rgba(114, 24, 250, 0.2));
@@ -3302,9 +3300,7 @@ body::after {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    background: linear-gradient(135deg, #7218FA 0%, #9D4EDD 100%);
-    color: white;
-    padding: 0rem;
+    padding: 0;
     border-radius: 15px;
     font-size: 0.8rem;
     font-weight: 700;
@@ -3312,10 +3308,6 @@ body::after {
     letter-spacing: 0.05em;
 }
 
-.certification-card__badge--advanced {
-    background: linear-gradient(135deg, #00FF94 0%, #59FFB9 100%);
-    color: #000;
-}
 
 .certification-card__content {
     flex: 1;
