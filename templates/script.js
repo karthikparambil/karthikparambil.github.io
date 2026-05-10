@@ -115,32 +115,35 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Pixel Mouse Effect
+// Pixel Mouse Effect - Throttled for Performance
+let lastParticleTime = 0;
+const PARTICLE_THROTTLE = 20; // Only create particle every 20ms
+
 document.addEventListener('mousemove', function (e) {
+    const now = Date.now();
+    if (now - lastParticleTime < PARTICLE_THROTTLE) return;
+    lastParticleTime = now;
+
     const particle = document.createElement('div');
     particle.className = 'pixel-particle';
 
-    // Randomize position slightly
     const x = e.clientX + (Math.random() * 10 - 5);
     const y = e.clientY + (Math.random() * 10 - 5);
 
     particle.style.left = `${x}px`;
     particle.style.top = `${y}px`;
 
-    // Randomize color from theme
     const colors = ['#59FFB9', '#7218FA', '#00FF94', '#9D4EDD'];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     particle.style.backgroundColor = randomColor;
     particle.style.boxShadow = `0 0 5px ${randomColor}`;
 
-    // Randomize size
-    const size = Math.random() * 4 + 4; // 4px to 8px
+    const size = Math.random() * 4 + 4;
     particle.style.width = `${size}px`;
     particle.style.height = `${size}px`;
 
     document.body.appendChild(particle);
 
-    // Cleanup
     setTimeout(() => {
         particle.remove();
     }, 600);

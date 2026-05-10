@@ -431,7 +431,8 @@ body::after {
     top: 0;
     left: 0;
     z-index: 999;
-    backdrop-filter: blur(25px);
+    backdrop-filter: blur(10px);
+    will-change: transform;
 }
 
 .nav__list {
@@ -1255,7 +1256,8 @@ body::after {
     border: 1px solid rgba(89, 255, 185, 0.3);
     border-radius: 15px;
     padding: 2.5rem;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(8px);
+    will-change: transform;
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
@@ -1897,7 +1899,7 @@ body::after {
     max-width: 1000px;
     margin: 0 auto;
     flex-wrap: wrap;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(8px);
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
@@ -1911,7 +1913,8 @@ body::after {
     border: 1px solid rgba(89, 255, 185, 0.3);
     border-radius: 20px;
     padding: 3rem;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(8px);
+    will-change: transform;
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
@@ -2409,8 +2412,9 @@ body::after {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(89, 255, 185, 0.2);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
     transform: translateY(0);
+    will-change: transform;
 }
 
 .project-card:hover {
