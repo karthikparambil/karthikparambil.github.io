@@ -7,7 +7,8 @@
 }
 
 /* Base source button (Ghost/Minimal style for View) */
-.source-btn, .btn-view {
+.source-btn,
+.btn-view {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -22,7 +23,8 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.source-btn:hover, .btn-view:hover {
+.source-btn:hover,
+.btn-view:hover {
     background: rgba(114, 24, 250, 0.15);
     border-color: rgba(114, 24, 250, 0.4);
     transform: translateY(-2px);
@@ -42,7 +44,8 @@
     transform: translateY(-3px) !important;
 }
 
-.source-btn:active, .btn-live:active {
+.source-btn:active,
+.btn-live:active {
     transform: translateY(0) !important;
 }
 
@@ -211,21 +214,33 @@ html {
     scroll-behavior: smooth;
 }
 
-/* 1. Make main sections transparent so Body background shows through */
+/* 1. Make ALL sections transparent so the body background shows through seamlessly */
 .skills,
 .certifications,
 .projects,
 #experience,
 .connect,
 .hero-header,
-.footer {
+.footer,
+.section {
     background: transparent !important;
     background-image: none !important;
+    background-color: transparent !important;
     border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
     box-shadow: none !important;
+    backdrop-filter: none !important;
     padding-top: 6rem !important;
-    /* Adjust spacing to flow better */
     padding-bottom: 6rem !important;
+}
+
+/* 2. Kill all section-level pseudo-element overlays that create inconsistent backgrounds */
+.skills::before,
+.certifications::before,
+#experience::before,
+#experience::after {
+    display: none !important;
 }
 
 body {
@@ -2302,13 +2317,9 @@ body::after {
 /* Projects Section */
 .projects {
     padding: 10rem 0;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(89, 255, 185, 0.2);
-    backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
     margin: 2rem 0;
-    border-radius: 15px;
 }
 
 .projects__header {
@@ -2617,9 +2628,6 @@ body::after {
 
 /* Connect Section */
 .connect {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(114, 24, 250, 0.1) 50%, rgba(0, 0, 0, 0.95) 100%);
-    border-top: 1px solid rgba(89, 255, 185, 0.3);
-    border-bottom: 1px solid rgba(114, 24, 250, 0.3);
     padding: 6rem 0;
     position: relative;
     overflow: hidden;
@@ -2909,13 +2917,6 @@ body::after {
 
 /* Footer Section */
 .footer {
-    background: linear-gradient(135deg,
-            rgba(0, 0, 0, 0.98) 0%,
-            rgba(89, 255, 185, 0.05) 25%,
-            rgba(114, 24, 250, 0.05) 50%,
-            rgba(0, 255, 148, 0.05) 75%,
-            rgba(0, 0, 0, 0.98) 100%);
-    border-top: 1px solid rgba(89, 255, 185, 0.3);
     padding: 6rem 0 3rem;
     position: relative;
     overflow: hidden;
@@ -3222,9 +3223,6 @@ body::after {
 
 /* Certifications Section */
 .certifications {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(89, 255, 185, 0.05) 50%, rgba(0, 0, 0, 0.95) 100%);
-    border-top: 1px solid rgba(89, 255, 185, 0.3);
-    border-bottom: 1px solid rgba(114, 24, 250, 0.3);
     padding: 6rem 0;
     position: relative;
     overflow: hidden;
