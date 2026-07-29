@@ -400,7 +400,7 @@
                         <p class="skill-card__description">Incident response, evidence collection, and forensic analysis
                         </p>
                         <div class="skill-card__progress">
-                            <div class="skill-card__progress-bar" style="--progress: 90%"></div>
+                            <div class="skill-card__progress-bar" style="--progress: 50%"></div>
                         </div>
                     </div>
 
@@ -420,7 +420,7 @@
                         <p class="skill-card__description">Malware analysis, binary exploitation, and software reverse
                             engineering</p>
                         <div class="skill-card__progress">
-                            <div class="skill-card__progress-bar" style="--progress: 55%"></div>
+                            <div class="skill-card__progress-bar" style="--progress: 20%"></div>
                         </div>
                     </div>
                 </div>
@@ -455,27 +455,11 @@
                 <p class="certifications__subtitle">Validated expertise in cybersecurity and information security</p>
 
                 <div class="certifications__grid">
-                    <!-- Security+ Certification -->
-                    <div class="certification-card certification-card--left">
+                    <!-- Security+ Certification (Actually Pentest+ in content) -->
+                    <div class="certification-card">
                         <div class="certification-card__header">
                             <div class="certification-card__icon">
-                                <svg viewBox="0 0 100 100" class="cert-icon">
-                                    <defs>
-                                        <linearGradient id="certGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stop-color="#59FFB9" />
-                                            <stop offset="100%" stop-color="#00FF94" />
-                                        </linearGradient>
-                                    </defs>
-                                    <!-- Shield with Badge -->
-                                    <path d="M50 15 L75 25 L75 55 C75 75 50 85 50 85 C50 85 25 75 25 55 L25 25 Z"
-                                        stroke="url(#certGrad1)" stroke-width="3" fill="rgba(89, 255, 185, 0.1)" />
-                                    <!-- Badge/Certificate Icon -->
-                                    <rect x="35" y="35" width="30" height="20" rx="3" stroke="url(#certGrad1)"
-                                        stroke-width="2" fill="rgba(89, 255, 185, 0.15)" />
-                                    <path d="M40 42 L60 42 M40 46 L58 46 M40 50 L55 50" stroke="url(#certGrad1)"
-                                        stroke-width="1.5" />
-                                    <circle cx="50" cy="45" r="2" fill="url(#certGrad1)" />
-                                </svg>
+                                <img src="assets/images/comptia-pentest-logo.png" alt="CompTIA Logo" class="certification-card__logo">
                             </div>
                             <div class="certification-card__badge">
                                 <span class="certification-card__badge-text">CompTIA</span>
@@ -485,51 +469,147 @@
                         <div class="certification-card__content">
                             <h3 class="certification-card__title">Pentest+</h3>
                             <p class="certification-card__issuer">CompTIA</p>
-                            <p class="certification-card__description">
-                                Industry-leading certification validating foundational cybersecurity skills and
-                                knowledge.
-                                Covers network security, compliance, threats, vulnerabilities, and security operations.
-                            </p>
                             <div class="certification-card__details">
-                                <div class="certification-card__detail">
-                                    <span class="detail-label">Focus:</span>
-                                    <span class="detail-value">Core Security</span>
+                                <div class="certification-card__info-group">
+                                    <div class="certification-card__detail">
+                                        <span class="detail-label">Focus:</span>
+                                        <span class="detail-value">Core Security</span>
+                                    </div>
+                                    <div class="certification-card__detail">
+                                        <span class="detail-label">Level:</span>
+                                        <span class="detail-value">Intermediate</span>
+                                    </div>
                                 </div>
-                                <div class="certification-card__detail">
-                                    <span class="detail-label">Level:</span>
-                                    <span class="detail-value">Entry to Intermediate</span>
+                                <a href="#" onclick="alert('Pursuing')" class="certification-card__link" target="_blank" aria-label="View CompTIA Pentest+ Certificate">
+                                    <span>Pursuing</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="link-icon">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Google Cybersecurity Professional -->
+                    <div class="certification-card">
+                        <div class="certification-card__header">
+                            <div class="certification-card__icon">
+                                <img src="assets/images/google.png" alt="Google Logo" class="certification-card__logo">
+                            </div>
+                            <div class="certification-card__badge">
+                                <span class="certification-card__badge-text">Google</span>
+                            </div>
+                        </div>
+
+                        <div class="certification-card__content">
+                            <h3 class="certification-card__title">Google Cybersecurity Professional Certificate</h3>
+                            <p class="certification-card__issuer">Google / Coursera</p>
+                            <div class="certification-card__details">
+                                <div class="certification-card__info-group">
+                                    <div class="certification-card__detail">
+                                        <span class="detail-label">Focus:</span>
+                                        <span class="detail-value">SecOps & Analysis</span>
+                                    </div>
+                                    <div class="certification-card__detail">
+                                        <span class="detail-label">Level:</span>
+                                        <span class="detail-value">Professional</span>
+                                    </div>
                                 </div>
+                                <a href="https://www.coursera.org/account/accomplishments/specialization/LPPKP84JSK9G" class="certification-card__link" target="_blank" aria-label="View Google Cybersecurity Certificate">
+                                    <span>View Cert</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="link-icon">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mastercard Job Simulation -->
+                    <div class="certification-card">
+                        <div class="certification-card__header">
+                            <div class="certification-card__icon">
+                                <img src="assets/images/forage.png" alt="Mastercard Logo" class="certification-card__logo">
+                            </div>
+                            <div class="certification-card__badge">
+                                <span class="certification-card__badge-text">Forage</span>
+                            </div>
+                        </div>
+
+                        <div class="certification-card__content">
+                            <h3 class="certification-card__title">Cybersecurity Job Simulation</h3>
+                            <p class="certification-card__issuer">Mastercard by Forage</p>
+                            <div class="certification-card__details">
+                                <div class="certification-card__info-group">
+                                    <div class="certification-card__detail">
+                                        <span class="detail-label">Focus:</span>
+                                        <span class="detail-value">Job Simulation</span>
+                                    </div>
+                                    <div class="certification-card__detail">
+                                        <span class="detail-label">Level:</span>
+                                        <span class="detail-value">Intermediate</span>
+                                    </div>
+                                </div>
+                                <a href="https://www.theforage.com/completion-certificates/mfxGwGDp6WkQmtmTf/vcKAB5yYAgvemepGQ_mfxGwGDp6WkQmtmTf_6a0dc6684f2d3d4fe7b1b69a_1779291550173_completion_certificate.pdf" class="certification-card__link" target="_blank" aria-label="View Mastercard Simulation Certificate">
+                                    <span>View Cert</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="link-icon">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Red Team Leaders Professional -->
+                    <div class="certification-card">
+                        <div class="certification-card__header">
+                            <div class="certification-card__icon">
+                                <img src="assets/images/redtemleaders.png" alt="Red Team Leaders Logo" class="certification-card__logo">
+                            </div>
+                            <div class="certification-card__badge">
+                                <span class="certification-card__badge-text">Red Team Leaders</span>
+                            </div>
+                        </div>
+
+                        <div class="certification-card__content">
+                            <h3 class="certification-card__title">Cybersecurity Educator</h3>
+                            <p class="certification-card__issuer">Professional Certification</p>
+                            <div class="certification-card__details">
+                                <div class="certification-card__info-group">
+                                    <div class="certification-card__detail">
+                                        <span class="detail-label">Focus:</span>
+                                        <span class="detail-value">Training & Ed</span>
+                                    </div>
+                                    <div class="certification-card__detail">
+                                        <span class="detail-label">Level:</span>
+                                        <span class="detail-value">Professional</span>
+                                    </div>
+                                </div>
+                                <a href="https://courses.redteamleaders.com/exam-completion/bbdd458507fb4927" class="certification-card__link" target="_blank" aria-label="View Cybersecurity Educator Certificate">
+                                    <span>View Cert</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="link-icon">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
+                                </a>
                             </div>
                         </div>
                     </div>
 
                     <!-- ADIS Certification -->
-                    <div class="certification-card certification-card--right">
+                    <div class="certification-card">
                         <div class="certification-card__header">
                             <div class="certification-card__icon">
-                                <svg viewBox="0 0 100 100" class="cert-icon">
-                                    <defs>
-                                        <linearGradient id="certGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stop-color="#7218FA" />
-                                            <stop offset="100%" stop-color="#9D4EDD" />
-                                        </linearGradient>
-                                    </defs>
-                                    <!-- Advanced Diploma Icon -->
-                                    <rect x="25" y="25" width="50" height="35" rx="5" stroke="url(#certGrad2)"
-                                        stroke-width="3" fill="rgba(114, 24, 250, 0.1)" />
-                                    <!-- Diploma Scroll -->
-                                    <path d="M30 30 Q50 25 70 30 Q70 35 50 40 Q30 35 30 30" stroke="url(#certGrad2)"
-                                        stroke-width="2" fill="rgba(114, 24, 250, 0.15)" />
-                                    <path d="M30 40 Q50 35 70 40 Q70 45 50 50 Q30 45 30 40" stroke="url(#certGrad2)"
-                                        stroke-width="2" fill="rgba(114, 24, 250, 0.15)" />
-                                    <!-- Advanced Badge -->
-                                    <polygon points="45,20 55,20 52,15 48,15" stroke="url(#certGrad2)" stroke-width="2"
-                                        fill="rgba(114, 24, 250, 0.2)" />
-                                    <text x="50" y="18" text-anchor="middle" font-size="8"
-                                        fill="url(#certGrad2)">ADV</text>
-                                </svg>
+                                <img src="assets/images/offenso.png" alt="Offenso Logo" class="certification-card__logo">
                             </div>
-                            <div class="certification-card__badge certification-card__badge--advanced">
+                            <div class="certification-card__badge">
                                 <span class="certification-card__badge-text">Offenso Hackers Academy</span>
                             </div>
                         </div>
@@ -537,20 +617,25 @@
                         <div class="certification-card__content">
                             <h3 class="certification-card__title">ADIS</h3>
                             <p class="certification-card__issuer">Advanced Diploma in Information Security</p>
-                            <p class="certification-card__description">
-                                Comprehensive advanced diploma covering enterprise-level information security
-                                management,
-                                risk assessment, security architecture, and advanced cybersecurity methodologies.
-                            </p>
                             <div class="certification-card__details">
-                                <div class="certification-card__detail">
-                                    <span class="detail-label">Focus:</span>
-                                    <span class="detail-value">Enterprise Security</span>
+                                <div class="certification-card__info-group">
+                                    <div class="certification-card__detail">
+                                        <span class="detail-label">Focus:</span>
+                                        <span class="detail-value">Enterprise Sec</span>
+                                    </div>
+                                    <div class="certification-card__detail">
+                                        <span class="detail-label">Level:</span>
+                                        <span class="detail-value">Advanced</span>
+                                    </div>
                                 </div>
-                                <div class="certification-card__detail">
-                                    <span class="detail-label">Level:</span>
-                                    <span class="detail-value">Advanced </span>
-                                </div>
+                                <a href="#" onclick="alert('Pursuing')" class="certification-card__link" aria-label="Offenso ADIS Certificate - Pursuing">
+                                    <span>Pursuing</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="link-icon">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -974,6 +1059,16 @@
                     </div>
 
                 </div>
+
+                <!-- Show More / View All Projects Toggle -->
+                <div class="projects-expand">
+                    <button id="toggleProjectsBtn" class="projects-expand__btn" aria-label="Toggle Project Visibility">
+                        <span class="btn-text">Show More Projects (+6)</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </section>
         <!-- Experience -->
@@ -982,33 +1077,31 @@
             <div class="timeline">
                 <div class="timeline-item1">
                     <div class="experience-header">
+                        <h3>CTF Player</h3>
+                    </div>
+                    <span class="date-range">May 2025 - Present · 11 mos</span>
+                    <p>Competing in various cybersecurity competitions with a focus on Offensive Security, Web Exploitation, Reverse Engineering, and Cryptography.</p>
+                </div>
+
+                <div class="timeline-item1">
+                    <div class="experience-header">
+                        <h4 class="company-name">Hackware Security Solutions</h4>
+                        <h3>VAPT Intern</h3>
+                        <span class="employment-type">Internship</span>
+                    </div>
+                    <span class="date-range">Jun 2026 - Jul 2026 · 1 mo</span>
+                    <p>Conducted Vulnerability Assessment and Penetration Testing (VAPT) across web applications, network environments, and API endpoints. Identified security flaws, executed exploit PoCs, and delivered comprehensive remediation reporting.</p>
+                </div>
+
+                <div class="timeline-item1">
+                    <div class="experience-header">
                         <h4 class="company-name">Offenso Hackers Academy</h4>
                         <h3>Research and Development Member</h3>
                         <span class="employment-type">Full-time</span>
                     </div>
-                    <span class="date-range">2025 - Present</span>
-                    <p>Conducted security research and developed innovative cybersecurity solutions for emerging
-                        threats. Created comprehensive
-                        penetration testing labs and vulnerable environments for training purposes. Built hands-on
-                        Capture The Flag (CTF) challenges and realistic
-                        attack scenarios. Collaborated with teams to analyze attack vectors and develop defensive
-                        strategies.</p>
+                    <span class="date-range">Jul 2025 - Present · 1 yr 1 mo</span>
+                    <p>Conducted security research and developed innovative cybersecurity solutions for emerging threats. Created comprehensive penetration testing labs, vulnerable environments, and hands-on Capture The Flag (CTF) challenges for training purposes.</p>
                 </div>
-                <div class="timeline-item1">
-                    <div class="experience-header">
-                        <h3>Cybersecurity Researcher</h3>
-                    </div>
-                    <span class="date-range">2025 - Present</span>
-                    <p>Conducting vulnerability research, penetration testing, and developing CTF challenges.</p>
-                </div>
-                <div class="timeline-item1">
-                    <div class="experience-header">
-                        <h3>CTF Player</h3>
-                    </div>
-                    <span class="date-range">2025 - Present</span>
-                    <p>Competing in various cybersecurity competitions with focus on Offensive Security</p>
-                </div>
-
             </div>
         </section>
 

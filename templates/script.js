@@ -78,42 +78,111 @@ const throttleScroll = () => {
 // Initial call and scroll event listener
 updateActiveLink();
 window.addEventListener('scroll', throttleScroll);
-// Filter functionality
+// Filter functionality & Pagination
 const filterBtns = document.querySelectorAll('.filter-btn');
 const projectItems = document.querySelectorAll('.project-card');
 const emptyState = document.querySelector('.empty-state');
+const toggleProjectsBtn = document.getElementById('toggleProjectsBtn');
+const INITIAL_LIMIT = 6;
+let isExpanded = false;
+
+function updateProjectsDisplay() {
+    const activeBtn = document.querySelector('.filter-btn.active');
+    const filterValue = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
+    
+    const visibleItems = [];
+    projectItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        if (filterValue === 'all' || itemCategory === filterValue || (filterValue === 'tools' && itemCategory === 'tool')) {
+            visibleItems.push(item);
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+    visibleItems.forEach((item, index) => {
+        if (isExpanded || index < INITIAL_LIMIT) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+    if (emptyState) {
+        emptyState.style.display = visibleItems.length === 0 ? 'block' : 'none';
+    }
+
+    const expandContainer = document.querySelector('.projects-expand');
+    if (expandContainer && toggleProjectsBtn) {
+        if (visibleItems.length > INITIAL_LIMIT) {
+            expandContainer.style.display = 'flex';
+            const btnText = toggleProjectsBtn.querySelector('.btn-text');
+            if (isExpanded) {
+                if (btnText) btnText.textContent = 'Show Less Projects';
+                toggleProjectsBtn.classList.add('is-expanded');
+            } else {
+                const remaining = visibleItems.length - INITIAL_LIMIT;
+                if (btnText) btnText.textContent = `Show More Projects (+${remaining})`;
+                toggleProjectsBtn.classList.remove('is-expanded');
+            }
+        } else {
+            expandContainer.style.display = 'none';
+        }
+    }
+}
 
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        // Remove active class from all buttons
         filterBtns.forEach(b => b.classList.remove('active'));
-        // Add active class to clicked button
         btn.classList.add('active');
-
-        const filterValue = btn.getAttribute('data-filter');
-        let visibleItems = 0;
-
-        projectItems.forEach(item => {
-            if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                item.style.display = 'block'; // Or whatever your default display is
-                // Since we are using grid for the parent, ensuring the item is part of the flow
-                // display: block usually works fine inside a grid item unless specific overrides exist.
-                // However, to be safe with grid layout:
-                item.style.display = '';
-                visibleItems++;
-            } else {
-                item.style.display = 'none';
-            }
-        });
-
-        // Show empty state if no items are visible
-        if (visibleItems === 0) {
-            emptyState.style.display = 'block';
-        } else {
-            emptyState.style.display = 'none';
-        }
+        isExpanded = false;
+        updateProjectsDisplay();
     });
 });
+
+function scrollToProjectsEnd() {
+    const activeBtn = document.querySelector('.filter-btn.active');
+    const filterValue = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
+    
+    const visibleCards = Array.from(projectItems).filter(item => {
+        const cat = item.getAttribute('data-category');
+        return filterValue === 'all' || cat === filterValue || (filterValue === 'tools' && cat === 'tool');
+    });
+
+    const targetCard = visibleCards.length >= INITIAL_LIMIT ? visibleCards[INITIAL_LIMIT - 1] : visibleCards[visibleCards.length - 1];
+    
+    if (targetCard) {
+        const cardRect = targetCard.getBoundingClientRect();
+        const cardBottom = cardRect.top + window.pageYOffset + cardRect.height;
+        const targetScrollY = cardBottom - window.innerHeight + 120;
+
+        window.scrollTo({
+            top: Math.max(0, targetScrollY),
+            behavior: 'smooth'
+        });
+    }
+}
+
+if (toggleProjectsBtn) {
+    toggleProjectsBtn.addEventListener('click', () => {
+        if (isExpanded) {
+            // Smoothly scroll UP to the 6th project position first
+            scrollToProjectsEnd();
+            
+            // Wait for smooth scroll animation to finish (400ms) before hiding extra items
+            setTimeout(() => {
+                isExpanded = false;
+                updateProjectsDisplay();
+            }, 400);
+        } else {
+            isExpanded = true;
+            updateProjectsDisplay();
+        }
+    });
+}
+
+// Initial invocation
+updateProjectsDisplay();
 
 // Pixel Mouse Effect - Throttled for Performance
 let lastParticleTime = 0;
