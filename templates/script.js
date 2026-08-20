@@ -217,3 +217,13 @@ document.addEventListener('mousemove', function (e) {
         particle.remove();
     }, 600);
 });
+
+// Open all non-anchor links in a new tab
+document.querySelectorAll('a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && !href.startsWith('#') && !href.startsWith('javascript:') && !href.startsWith('mailto:')) {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+    }
+});
+
