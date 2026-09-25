@@ -1452,6 +1452,89 @@
                 <div class="footer__bg-element footer__bg-element--4"></div>
             </div>
         </footer>
+        <!-- Cyber Pet Companion Widget -->
+        <div class="cyber-pet-container" id="cyberPetContainer">
+            <!-- Floating Thought Bubble -->
+            <div class="cyber-pet__thought-bubble" id="petThought">
+                <span class="pet-thought-text" id="petThoughtText">Initializing cyber scan...</span>
+            </div>
+
+            <!-- Interactive Cyber Pet Character Button -->
+            <button class="cyber-pet__btn" id="cyberPetBtn" aria-label="Cyber Companion">
+                <div class="cyber-pet__avatar">
+                    <svg viewBox="0 0 100 100" class="pet-svg">
+                        <defs>
+                            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="2" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+                        
+                        <!-- Headband -->
+                        <path d="M 16 50 C 16 10, 84 10, 84 50" fill="none" stroke="#4a3e7c" stroke-width="5" />
+                        <path d="M 24 30 C 40 16, 60 16, 76 30" fill="none" stroke="#3df2d4" stroke-width="2" />
+                        
+                        <!-- Earcups / Headphones -->
+                        <rect x="10" y="42" width="12" height="26" rx="6" fill="#4a3e7c" />
+                        <rect x="78" y="42" width="12" height="26" rx="6" fill="#4a3e7c" />
+                        <!-- Headphone Accents -->
+                        <line x1="20" y1="46" x2="20" y2="64" stroke="#3df2d4" stroke-width="1.5" />
+                        <line x1="80" y1="46" x2="80" y2="64" stroke="#3df2d4" stroke-width="1.5" />
+                        
+                        <!-- Main Head Shell -->
+                        <rect x="20" y="28" width="60" height="52" rx="22" fill="#3a3b40" />
+                        
+                        <!-- Inner Bezel -->
+                        <rect x="23" y="31" width="54" height="46" rx="19" fill="#9ba0a5" />
+                        
+                        <!-- Face Screen -->
+                        <rect x="27" y="35" width="46" height="38" rx="14" fill="#151618" />
+                        
+                        <!-- Sensor / Camera Notch -->
+                        <circle cx="50" cy="40" r="1.5" fill="#000" />
+                        
+                        <!-- Glowing Eyes -->
+                        <!-- Left Eye -->
+                        <rect id="petLeftEye" x="37" y="48" width="10" height="10" rx="3.5" fill="#3df2d4" class="pet-eye" filter="url(#glow)">
+                        </rect>
+                        <!-- Right Eye -->
+                        <rect id="petRightEye" x="53" y="48" width="10" height="10" rx="3.5" fill="#3df2d4" class="pet-eye" filter="url(#glow)">
+                        </rect>
+                    </svg>
+                </div>
+                <span class="pet-pulse"></span>
+            </button>
+
+            <!-- Popover Info Card -->
+            <div class="cyber-pet__card" id="petInfoCard">
+                <div class="pet-card__header">
+                    <div class="pet-card__title"><i class="fas fa-robot"></i> SENTINEL BOT</div>
+                    <button class="pet-card__close" id="closePetCard">&times;</button>
+                </div>
+                <div class="pet-card__body">
+                    <p class="pet-greeting">👋 Beep boop! I'm <b>Sentinel</b></p>
+                    <div class="pet-stats-box">
+                        <div class="pet-stat-item"><i class="fas fa-network-wired"></i> IP Address: <span id="petCardIp">Detecting...</span></div>
+                        <div class="pet-stat-item"><i class="fas fa-globe-americas"></i> Location: <span id="petCardLoc">Locating...</span></div>
+                        <div class="pet-stat-item"><i class="fas fa-desktop"></i> OS / Platform: <span id="petCardOs">Scanning...</span></div>
+                        <div class="pet-stat-item"><i class="fas fa-microchip"></i> CPU Cores: <span id="petCardCpu">Scanning...</span></div>
+                        <div class="pet-stat-item"><i class="fas fa-memory"></i> <div style="display:inline-flex; align-items:center;">RAM <span title="Modern browsers deliberately cap RAM detection at 8 GB to mitigate precise device fingerprinting." style="cursor: help; display: inline-flex;"><svg style="width: 14px; height: 14px; fill: #a3b0bd; margin-left: 6px; margin-top: 2px;" viewBox="0 0 512 512"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></svg></span>:</div> <span id="petCardRam">Scanning...</span></div>
+                        <div class="pet-stat-item"><i class="fas fa-video"></i> GPU Renderer: <span id="petCardGpu">Scanning...</span></div>
+                        <div class="pet-stat-item"><i class="fas fa-expand"></i> Screen Size: <span id="petCardRes">Measuring...</span></div>
+                        <div class="pet-stat-item"><i class="fab fa-chrome"></i> Browser Engine: <span id="petCardBrowser">Scanning...</span></div>
+                        <div class="pet-stat-item"><i class="fas fa-language"></i> System Lang: <span id="petCardLang">Scanning...</span></div>
+                        <div class="pet-stat-item"><i class="fas fa-clock"></i> Timezone: <span id="petCardTimezone">Scanning...</span></div>
+                        <div class="pet-stat-item"><i class="fas fa-cookie"></i> Cookies Enabled: <span id="petCardCookies">Scanning...</span></div>
+                        <div class="pet-stat-item"><i class="fas fa-hand-pointer"></i> Touch Device: <span id="petCardTouch">Scanning...</span></div>
+                    </div>
+                    <div class="pet-security-notice">
+                        <i class="fas fa-info-circle"></i>
+                        <span><b>Offensive Security Awareness:</b> This panel demonstrates how much metadata your browser reveals passively without any permissions.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="templates/script.js"></script>
 </body>
 
