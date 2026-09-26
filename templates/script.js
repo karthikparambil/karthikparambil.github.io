@@ -1,9 +1,7 @@
 
-// Track if we're scrolling programmatically
 let isScrolling = false;
 let scrollTimeout;
 
-// Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -13,37 +11,28 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
-            // Remove active class from all links
             document.querySelectorAll('.nav__list-link').forEach(link => {
                 link.classList.remove('active');
             });
-            // Add active class to clicked link
             this.classList.add('active');
 
-            // Smooth scroll to target
             window.scrollTo({
                 top: targetElement.offsetTop - 100,
                 behavior: 'smooth'
             });
-
-            // Reset scrolling flag after scroll completes
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 isScrolling = false;
-            }, 1000); // Slightly longer than the scroll duration
+            }, 1000);
         }
     });
 });
-
-// Update active nav link on scroll
 function updateActiveLink() {
-    // Don't update if we're programmatically scrolling
     if (isScrolling) return;
 
     const sections = document.querySelectorAll('section[id]');
     let current = '';
 
-    // Find which section is currently in view
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
@@ -52,7 +41,6 @@ function updateActiveLink() {
         }
     });
 
-    // Only update if we found a section
     if (current) {
         document.querySelectorAll('.nav__list-link').forEach(link => {
             link.classList.remove('active');
@@ -63,7 +51,6 @@ function updateActiveLink() {
     }
 }
 
-// Throttle the scroll event for better performance
 let isThrottled = false;
 const throttleScroll = () => {
     if (!isThrottled) {
@@ -75,10 +62,8 @@ const throttleScroll = () => {
     }
 };
 
-// Initial call and scroll event listener
 updateActiveLink();
 window.addEventListener('scroll', throttleScroll);
-// Filter functionality & Pagination
 const filterBtns = document.querySelectorAll('.filter-btn');
 const projectItems = document.querySelectorAll('.project-card');
 const emptyState = document.querySelector('.empty-state');
@@ -166,10 +151,8 @@ function scrollToProjectsEnd() {
 if (toggleProjectsBtn) {
     toggleProjectsBtn.addEventListener('click', () => {
         if (isExpanded) {
-            // Smoothly scroll UP to the 6th project position first
             scrollToProjectsEnd();
             
-            // Wait for smooth scroll animation to finish (400ms) before hiding extra items
             setTimeout(() => {
                 isExpanded = false;
                 updateProjectsDisplay();
@@ -181,12 +164,10 @@ if (toggleProjectsBtn) {
     });
 }
 
-// Initial invocation
 updateProjectsDisplay();
 
-// Pixel Mouse Effect - Throttled for Performance
 let lastParticleTime = 0;
-const PARTICLE_THROTTLE = 20; // Only create particle every 20ms
+const PARTICLE_THROTTLE = 20;
 
 document.addEventListener('mousemove', function (e) {
     const now = Date.now();
@@ -309,14 +290,131 @@ document.querySelectorAll('a').forEach(link => {
                 petCardOs.textContent = `${os} [${navigator.platform}]`;
             }
 
-            // CPU and RAM
+            // CPU — benchmark to estimate actual physical cores
             const petCardCpu = document.getElementById('petCardCpu');
-            if (petCardCpu) petCardCpu.textContent = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} Cores` : 'Unknown';
-            
+            if (petCardCpu) {
+                const threads = navigator.hardwareConcurrency;
+                if (threads) {
+                    petCardCpu.textContent = `Benchmarking...`;
+
+                    const workerCode = 'self.onmessage=function(){var x=0;for(var i=0;i<5e6;i++)x+=Math.sqrt(i);self.postMessage(x);}';
+                    const blob = new Blob([workerCode], { type: 'application/javascript' });
+                    const workerUrl = URL.createObjectURL(blob);
+
+                    function benchN(n) {
+                        return new Promise(function(resolve) {
+                            var done = 0, workers = [];
+                            var start = performance.now();
+                            for (var i = 0; i < n; i++) {
+                                var w = new Worker(workerUrl);
+                                w.onmessage = function() {
+                                    done++;
+                                    if (done === n) {
+                                        var elapsed = performance.now() - start;
+                                        workers.forEach(function(wk) { wk.terminate(); });
+                                        resolve(elapsed);
+                                    }
+                                };
+                                workers.push(w);
+                            }
+                            workers.forEach(function(wk) { wk.postMessage(0); });
+                        });
+                    }
+
+                    function median(arr) {
+                        var s = arr.slice().sort(function(a, b) { return a - b; });
+                        var mid = Math.floor(s.length / 2);
+                        return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
+                    }
+
+                    (async function() {
+                        var counts = [];
+                        for (var c = 1; c <= threads && c <= 20; c++) counts.push(c);
+
+                        // Warmup: stabilize JIT and worker pool
+                        await benchN(2); await benchN(2); await benchN(4);
+
+                        // Run each count 5 times, take median for stability
+                        var medians = [];
+                        for (var idx = 0; idx < counts.length; idx++) {
+                            var runs = [];
+                            for (var r = 0; r < 5; r++) {
+                                runs.push(await benchN(counts[idx]));
+                            }
+                            medians.push({ n: counts[idx], t: median(runs) });
+                        }
+                        URL.revokeObjectURL(workerUrl);
+
+                        // Curve fitting: find core count C that best explains the data.
+                        var T1 = medians[0].t;
+                        var bestC = 1, bestError = Infinity;
+
+                        for (var c = 1; c <= threads; c++) {
+                            var error = 0;
+                            for (var i = 0; i < medians.length; i++) {
+                                var N = medians[i].n;
+                                var predicted = T1 * Math.max(1, N / c);
+                                var actual = medians[i].t;
+                                var diff = (predicted - actual) / T1;
+                                error += diff * diff;
+                            }
+                            if (error < bestError) {
+                                bestError = error;
+                                bestC = c;
+                            }
+                        }
+
+                        petCardCpu.textContent = `${bestC}`;
+                    })();
+                } else {
+                    petCardCpu.textContent = 'Unknown';
+                }
+            }
+
+            // RAM — multi-signal estimation to beat browser capping
             const petCardRam = document.getElementById('petCardRam');
             if (petCardRam) {
+                let bestEstimate = 0;
+
+                // Signal 1: navigator.deviceMemory (capped & bucketed)
                 if (navigator.deviceMemory) {
-                    petCardRam.textContent = `${navigator.deviceMemory} GB`;
+                    bestEstimate = navigator.deviceMemory;
+                }
+
+                // Signal 2: performance.memory.jsHeapSizeLimit (Chrome only)
+                try {
+                    if (performance && performance.memory && performance.memory.jsHeapSizeLimit) {
+                        const heapLimitGB = performance.memory.jsHeapSizeLimit / (1024 * 1024 * 1024);
+                        let ramFromHeap = 0;
+                        if (heapLimitGB >= 3.5) ramFromHeap = 16;
+                        else if (heapLimitGB >= 1.5) ramFromHeap = 8;
+                        else if (heapLimitGB >= 0.8) ramFromHeap = 4;
+                        else ramFromHeap = 2;
+                        bestEstimate = Math.max(bestEstimate, ramFromHeap);
+                    }
+                } catch (e) {}
+
+                // Signal 3: Memory allocation probe
+                try {
+                    const testSize = 512 * 1024 * 1024; // 512 MB
+                    const probe = new ArrayBuffer(testSize);
+                    if (probe.byteLength === testSize) {
+                        bestEstimate = Math.max(bestEstimate, 4);
+                        try {
+                            const probe2 = new ArrayBuffer(1536 * 1024 * 1024); // 1.5 GB
+                            if (probe2.byteLength === 1536 * 1024 * 1024) {
+                                bestEstimate = Math.max(bestEstimate, 8);
+                            }
+                        } catch (e2) {}
+                    }
+                } catch (e) {}
+
+                if (bestEstimate > 0) {
+                    const commonSizes = [2, 4, 6, 8, 12, 16, 24, 32, 48, 64];
+                    const nearest = commonSizes.reduce((prev, curr) =>
+                        Math.abs(curr - bestEstimate) < Math.abs(prev - bestEstimate) ? curr : prev
+                    );
+                    petCardRam.textContent = `${nearest} GB`;
                 } else {
                     petCardRam.textContent = 'Unknown';
                 }
@@ -350,12 +448,96 @@ document.querySelectorAll('a').forEach(link => {
                 petCardBrowser.textContent = browser;
             }
 
-            // Cookies & Touch & Referrer & Dark Mode
+            // Cookies & Touch
             const petCardCookies = document.getElementById('petCardCookies');
             if (petCardCookies) petCardCookies.textContent = navigator.cookieEnabled ? 'True' : 'False';
 
             const petCardTouch = document.getElementById('petCardTouch');
             if (petCardTouch) petCardTouch.textContent = (navigator.maxTouchPoints > 0) ? `Yes (${navigator.maxTouchPoints} pts)` : 'No';
+
+            // Network connection
+            const petCardNetwork = document.getElementById('petCardNetwork');
+            if (petCardNetwork) {
+                const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                if (conn && conn.effectiveType) {
+                    const t = conn.effectiveType.toUpperCase();
+                    petCardNetwork.textContent = conn.downlink ? `${t} — ~${conn.downlink} Mbps` : t;
+                } else {
+                    petCardNetwork.textContent = 'Not Exposed';
+                }
+            }
+
+            // Pixel Density
+            const petCardDpr = document.getElementById('petCardDpr');
+            if (petCardDpr) {
+                const dpr = window.devicePixelRatio || 1;
+                petCardDpr.textContent = `${Math.round(dpr * 100) / 100}×`;
+            }
+
+            // Referrer
+            const petCardReferrer = document.getElementById('petCardReferrer');
+            if (petCardReferrer) {
+                const ref = document.referrer;
+                if (ref) {
+                    try {
+                        const h = new URL(ref).hostname.replace(/^www\./, '');
+                        petCardReferrer.textContent = (h === location.hostname) ? 'Direct / Internal' : h;
+                    } catch (e) {
+                        petCardReferrer.textContent = 'Direct';
+                    }
+                } else {
+                    petCardReferrer.textContent = 'Direct (no referrer)';
+                }
+            }
+
+            // Dark Mode
+            const petCardDarkMode = document.getElementById('petCardDarkMode');
+            if (petCardDarkMode) {
+                if (window.matchMedia) {
+                    petCardDarkMode.textContent = matchMedia('(prefers-color-scheme: dark)').matches ? 'Enabled' : 'Disabled';
+                } else {
+                    petCardDarkMode.textContent = 'Not Exposed';
+                }
+            }
+
+            // Return Visitor
+            const petCardVisits = document.getElementById('petCardVisits');
+            if (petCardVisits) {
+                try {
+                    const k = 'sentinel_visits';
+                    const n = (parseInt(localStorage.getItem(k), 10) || 0) + 1;
+                    localStorage.setItem(k, n);
+                    petCardVisits.textContent = n === 1 ? '1st visit' : `Visit #${n}`;
+                } catch (e) {
+                    petCardVisits.textContent = 'Storage Blocked';
+                }
+            }
+
+            // Ad Blocker Detection
+            const petCardAdblock = document.getElementById('petCardAdblock');
+            if (petCardAdblock) {
+                const bait = document.createElement('div');
+                bait.className = 'adsbox ad-banner pub_300x250 text-ad';
+                bait.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px';
+                document.body.appendChild(bait);
+                setTimeout(() => {
+                    const blocked = bait.offsetHeight === 0 || bait.offsetParent === null || getComputedStyle(bait).display === 'none';
+                    petCardAdblock.textContent = blocked ? 'Detected' : 'Not Detected';
+                    try { bait.remove(); } catch (e) {}
+                }, 300);
+            }
+
+            // Battery Status (async)
+            const petCardBattery = document.getElementById('petCardBattery');
+            if (petCardBattery && navigator.getBattery) {
+                navigator.getBattery().then(b => {
+                    petCardBattery.textContent = `${Math.round(b.level * 100)}%${b.charging ? ' (Charging)' : ''}`;
+                }).catch(() => {
+                    petCardBattery.textContent = 'Not Exposed';
+                });
+            } else if (petCardBattery) {
+                petCardBattery.textContent = 'Not Exposed';
+            }
 
 
 

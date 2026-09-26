@@ -3975,6 +3975,10 @@ body::after {
     flex-shrink: 0;
 }
 
+.pet-security-notice b {
+    font-weight: 700;
+}
+
 @media (max-width: 576px) {
     .cyber-pet-container {
         bottom: 16px;
